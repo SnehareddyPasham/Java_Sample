@@ -5,10 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
@@ -54,14 +57,14 @@ public class RegistrationForm {
 			break;
 		}
 		driver.manage().window().maximize();
-		
 
 	}
+
 	@BeforeClass
-	public void openApplication() throws InterruptedException{
+	public void openApplication() throws InterruptedException {
 		driver.get(properties.getProperty("url"));
 		Thread.sleep(50000);
-		driver.close();
+
 	}
 
 	@DataProvider(name = "dp")
@@ -76,6 +79,47 @@ public class RegistrationForm {
 	void testData(String sno, String employeeID, String employeeName, String Address, String mobileNum) {
 		System.out.println(sno + "\t" + employeeID + "\t" + employeeName + "\t" + Address + "\t" + mobileNum);
 
+	}
+
+	public void fillFirstName(String firstName) {
+		WebElement firstNameInput = driver.findElement(By.xpath("//input[@placeholder = 'First Name']"));
+		firstNameInput.sendKeys(firstName);
+	}
+
+	public void fillLastName(String lastName) {
+		WebElement lastNameInput = driver.findElement(By.xpath("//input[@placeholder = 'Last Name']"));
+		lastNameInput.sendKeys();
+	}
+
+	public void fillEmail(String email) {
+		WebElement emailInput = driver.findElement(By.xpath("//input[@placeholder = 'name@example.com']"));
+		emailInput.sendKeys(email);
+	}
+
+	public void fillGender(String gender) {
+		if (gender == "Male") {
+			WebElement maleRadioButton = driver.findElement(By.xpath("//input[@value = 'Male']"));
+			maleRadioButton.click();
+		} else if (gender == "Female") {
+			WebElement femaleRadioButton = driver.findElement(By.xpath("//input[@value = 'Female']"));
+			femaleRadioButton.click();
+		} else {
+            WebElement otherButton = driver.findElement(By.xpath("//input[@value = 'Other']"));
+            otherButton.click();
+		}
+
+	}
+	public void fillMobileNumber(String mobileNumber) {
+	     WebElement mobileInput = driver.findElement(By.xpath("//input[@placeholder = 'Mobile Number']"));
+	     mobileInput.sendKeys(mobileNumber);
+	}
+	public void fillDateOfBirth(String day,  String month, String year) {
+		WebElement DOBField = driver.findElement(By.xpath())
+	}
+
+	@AfterTest
+	public void closeDriver() {
+		driver.close();
 	}
 
 }
