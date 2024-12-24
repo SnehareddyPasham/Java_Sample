@@ -1,5 +1,6 @@
 package com.qualizeal.testngframework;
 
+import com.qualizeal.genericmethods.CommonWebUtils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,6 +18,8 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import com.qualizeal.genericmethods.CommonWebUtils;
 
 public class RegistrationForm {
 	static WebDriver driver = null;
@@ -104,19 +107,27 @@ public class RegistrationForm {
 			WebElement femaleRadioButton = driver.findElement(By.xpath("//input[@value = 'Female']"));
 			femaleRadioButton.click();
 		} else {
-            WebElement otherButton = driver.findElement(By.xpath("//input[@value = 'Other']"));
-            otherButton.click();
+			WebElement otherButton = driver.findElement(By.xpath("//input[@value = 'Other']"));
+			otherButton.click();
 		}
 
 	}
+
 	public void fillMobileNumber(String mobileNumber) {
-	     WebElement mobileInput = driver.findElement(By.xpath("//input[@placeholder = 'Mobile Number']"));
-	     mobileInput.sendKeys(mobileNumber);
-	}
-	public void fillDateOfBirth(String day,  String month, String year) {
-		WebElement DOBField = driver.findElement(By.xpath())
+		WebElement mobileInput = driver.findElement(By.xpath("//input[@placeholder = 'Mobile Number']"));
+		mobileInput.sendKeys(mobileNumber);
 	}
 
+	public void fillDateOfBirth(String day, String dayName, String month, String year) {
+		WebElement DOBField = driver.findElement(By.xpath("//input[@Id = 'dateOfBirthInput']"));
+		CommonWebUtils.clickElement(DOBField);
+		WebElement Date = driver.findElement(By.xpath("//div[@aria-label = \"Choose Thursday, January 2nd, 2025\"]"));
+		//WebElement Date = driver.findElement(By.xpath("//div[@aria-label = \'"Choose "+dayName+", "+month + ", "+day+", "+year+"]"'));
+		Date.click();
+	}
+    public void name() {
+		
+	}
 	@AfterTest
 	public void closeDriver() {
 		driver.close();
